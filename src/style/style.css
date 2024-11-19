@@ -56,7 +56,7 @@ nav {
 }
 
 
-#proj__button {
+#proj__button, #task__button {
     width: 220px;
     height: 60px;
     border-radius: 40px;
@@ -86,7 +86,9 @@ nav {
     flex-direction: row;
     flex-wrap: wrap;
     grid-area: main;
+    justify-content: center;
     background: linear-gradient(180deg, #FDFDFD, #E8EAF6);
+    margin-top: 40px;
 }
 
 
@@ -96,7 +98,9 @@ nav {
 }
 
 
-
+#submit__form {
+    display: none;
+}
 
 
 /* BUTTONS */
