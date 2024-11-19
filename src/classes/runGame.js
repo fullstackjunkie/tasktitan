@@ -17,10 +17,10 @@ export class RunGame {
             
         })
 
-        displayProjectsButton.addEventListener("click", (e) => {
-            displayProjects();
+        
+        displayProjects();
             
-        });
+        
 
         
     }

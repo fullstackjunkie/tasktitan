@@ -8,6 +8,7 @@ export function createProjects() {
     container.innerText = "";
     let form = document.createElement("form");
     let inputTitle = document.createElement("input");
+    
     let label = document.createElement("label");
     let btn = document.createElement("button");
     label.innerText = "Title: ";
@@ -26,10 +27,16 @@ export function createProjects() {
 
     document.querySelector(".inpButton").addEventListener("click", (e) => {
         e.preventDefault();
+       
+        let dValue = document.querySelector(".title__input");
+        
         nProject = new Projects();
-        nProject.title = document.querySelector(".title__input").value;
+        nProject.title = dValue.value;
+        console.log("IM IN");
+        dValue.value = "";
         projects.push(nProject);
         localStorage.setItem("projects", JSON.stringify(projects));
+        displayProjects();
     });
 
 
@@ -50,18 +57,74 @@ export function displayProjects() {
         
         let div  = document.createElement("div");
         let btn = document.createElement("button");
+        let delBtn = document.createElement("button");
+        let h2 = document.createElement("h2");
+        let ul = document.createElement("ul");
         div.classList.add("card");
-        item.todoList.push("a");
-        div.innerText = item.title;
-        btn.innerText = "ADD Tasks";
+        
+        h2.innerText = item.title;
+        btn.innerText = "ADD TASKS";
+        delBtn.innerText = "x";
+        delBtn.classList.add("del__button");
+        div.appendChild(h2);
         div.appendChild(btn);
+        div.appendChild(delBtn);
         container.appendChild(div);
+        div.appendChild(ul);
 
+        delBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.target.parentElement.remove();
+        });
         btn.addEventListener("click", (e) => {
             e.preventDefault();
-            console.log(item);
+            addTaskForm();
+            let inVal = document.querySelector(".inVal");
+            let subBtn = document.querySelector(".submit");
+            
+            div.appendChild(ul);
+            subBtn.addEventListener("click", (e)=> {
+                e.preventDefault();
+                item.todoList.push(inVal.value);
+                ul.innerText = "";
+                item.todoList.forEach((task) => {
+                    
+                    let li = document.createElement("li");
+                    li.innerText = task;
+                    ul.appendChild(li);
+                });
+                displayProjects();
+            });
+            
+        });
+
+        item.todoList.forEach((task) => {
+                    
+            let li = document.createElement("li");
+            li.innerText = task;
+            ul.appendChild(li);
         });
     }) 
     // container.appendChild(ul);
 }
 
+function addTaskForm() {
+    let cardDiv = document.querySelector(".card");
+    let btn = document.createElement("button");
+    let form = document.createElement("form");
+    let inputTitle = document.createElement("input");
+    inputTitle.classList.add("inVal");
+    let label = document.createElement("label");
+    label.innerText = "add task";
+    btn.classList.add("submit");
+    btn.innerText = "Submit";
+
+
+    cardDiv.appendChild(form);
+    form.appendChild(label);
+    form.appendChild(inputTitle);
+    form.appendChild(btn);
+}
+
+
+displayProjects();
