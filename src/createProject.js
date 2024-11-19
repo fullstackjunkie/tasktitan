@@ -5,6 +5,7 @@ export function createProjects() {
     
     let nProject;
     let container = document.querySelector(".container");
+    container.innerText = "";
     let form = document.createElement("form");
     let inputTitle = document.createElement("input");
     let label = document.createElement("label");
@@ -40,16 +41,27 @@ export function createProjects() {
 
 export function displayProjects() {
     let container = document.querySelector(".container");
-    let ul = document.createElement("ul");
+    container.innerText = "";
+    // let div = document.createElement("div");
 
     // let proj = JSON.parse(localStorage.getItem("projects"));
 
     projects.forEach((item) => {
         
-        let li = document.createElement("li");
-        li.innerText = item.title;
-        ul.appendChild(li);
+        let div  = document.createElement("div");
+        let btn = document.createElement("button");
+        div.classList.add("card");
+        item.todoList.push("a");
+        div.innerText = item.title;
+        btn.innerText = "ADD Tasks";
+        div.appendChild(btn);
+        container.appendChild(div);
+
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            console.log(item);
+        });
     }) 
-    container.appendChild(ul);
+    // container.appendChild(ul);
 }
 
